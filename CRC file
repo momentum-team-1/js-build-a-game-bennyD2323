@@ -1,0 +1,11 @@
+class
+Player
+responsibilities                     || collaborators
+-move
+-update position
+-fire bullets                                   -bullets
+detect collision                                -enemies
+die
+increase score
+
+
