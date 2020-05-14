@@ -10,7 +10,8 @@ class Game {
         this.bodies = []
 
         this.bodies = this.bodies.concat(this.player)
-
+        this.bodies = this.bodies.concat(createInvader(this))
+ 
         const animate = () => {
             this.update ()
             this.drawBodies(ctx, gameSize)
@@ -33,6 +34,11 @@ class Game {
         }
     }
     update() {
+        let notCollidingWithAnything = (b1) => {
+            return this.bodies.filter (function (b2) {return colliding (b1, b2) }).length === 0
+        }
+        this.bodies = this.bodies.filter (notCollidingWithAnything)
+        
         for (let body of this.bodies) {
             body.update()
         }
@@ -86,14 +92,40 @@ class Bullet {
         
     }   
 }
+class Enemy {
+    constructor (game, center) {
+        this.game = game
+        this.center = center
+        this.size = {x: 20, y: 20}
+        this.patrolY = -0
+        this.speedY = 0.6
 
-
-// class Invader {
-//     constructor () {
-//     this.size = {x:20, y:30}
-    
-//     }
-// }
-
+    }
+    update () {
+        if (this.patrolY < -10 || this.patrolY > 530) {
+            this.speedY += this.speedY
+        }
+        this.center.y += this.speedY
+        this.patrolY += this.speedY
+    }
+}
+function createInvader (game) {
+    let enemy = []
+    for (let i = 0; i < 20; i++) {
+        let x = Math.random() * 300
+        let y = Math.random() * 0
+        enemy.push(new Enemy(game, {x: x, y: y}))
+    }
+    return enemy
+}
+function colliding (b1, b2) {
+    return !(
+      b1 === b2 ||
+          b1.center.x + b1.size.x / 2 < b2.center.x - b2.size.x / 2 ||
+          b1.center.y + b1.size.y / 2 < b2.center.y - b2.size.y / 2 ||
+          b1.center.x - b1.size.x / 2 > b2.center.x + b2.size.x / 2 ||
+          b1.center.y - b1.size.y / 2 > b2.center.y + b2.size.y / 2
+    )
+  }
 
 new Game()
