@@ -64,11 +64,19 @@ class Player {
           console.log("MOVE LEFT")
           this.center.x -= 4
         }
+        else if (this.keyboarder.isDown(this.keyboarder.KEYS.UP)) {
+            console.log("MOVE UP")
+            this.center.y -= 4
+        }
+        else if (this.keyboarder.isDown(this.keyboarder.KEYS.DOWN)) {
+            console.log("MOVE DOWN")
+            this.center.y += 4
+        }
           if (this.keyboarder.isDown(this.keyboarder.KEYS.S)) {
-            console.log("pewpew bullit")
-            let bullet = new Bullet({ x: this.center.x, y: this.center.y - this.size.y - 10 },
+            console.log("pewpew ")
+            this.bullet = new Bullet({ x: this.center.x, y: this.center.y - this.size.y - 10 },
                 { x: 0, y: -7 })
-          }
+            }
         }
     }
     // 
@@ -80,20 +88,27 @@ class Bullet {
     this.center = center
     this.size = { x: 10, y: 10}
     this.velocity = velocity
-
+    this.keyboarder = Keyboarder    
     }
     update() {
         this.center.x += this.velocity.x
         this.center.y += this.velocity.y
+        // if (this.keyboarder.isDown(this.keyboarder.KEYS.S)) {
+        //     console.log("pewpew ")
+        //     this.bullet = new Bullet({ x: this.center.x, y: this.center.y - this.size.y - 10 },
+        //         { x: 0, y: -7 })
+            }
+    }
+    
+
+
+
+class Invader {
+    constructor () {
+    this.size = {x:20, y:30}
+    
     }
 }
-
-
-// class Invader {
-//     this.size = {x:20, y:30}
-    
-// }
-
 
 
 
