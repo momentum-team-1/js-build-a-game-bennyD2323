@@ -1,0 +1,18 @@
+class
+Player
+
+responsibilities                     | collaborators
+-move
+-update position
+-fire bullets                                -bullets
+detect collision                                -enemies
+die
+increase score
+be starting location
+    for bullets
+
+Bullets
+-move up                            |
+-detect collision with enemies
+    or with Player
+animate on key press
